@@ -6,6 +6,8 @@ const dotenv = require('dotenv');
 const articleRoutes = require('./Routes/articleRoutes');
 var cookieParser = require('cookie-parser');
 const authRoutes = require("./Routes/auth.js");
+const passport = require('./Middleware/passport');
+
 const { validateUserRegistration } = require("./Middleware/validation.js");
 // Configuration des variables d'environnement à partir du fichier .env
 dotenv.config();
@@ -32,6 +34,8 @@ mongoose.connection.on('connected', () => {
 mongoose.connection.on('error', (err) => {
     console.error('Error connecting to database:', err);
 });
+// Initialize Passport and session (if needed)
+app.use(passport.initialize());
 
 // Configuration de la route principale du backend
 app.get('/', (req, res) => {
