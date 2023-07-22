@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const articleRoutes = require('./Routes/articleRoutes');
 var cookieParser = require('cookie-parser');
-
+const authRoutes = require("./Routes/auth.js");
+const { validateUserRegistration } = require("./Middleware/validation.js");
 // Configuration des variables d'environnement à partir du fichier .env
 dotenv.config();
 const app = express();
@@ -36,6 +37,18 @@ mongoose.connection.on('error', (err) => {
 app.get('/', (req, res) => {
     res.send("Backend de l'application est en cours de fonctionnement.");
 });
+
+//  Configuration des routes pour les fonctionnalités d'authentification
+// Register validation middleware
+app.use("/api/user/register", validateUserRegistration);
+// Register user registration route
+app.use("/api/user", authRoutes);
+
+
+
+
+
+
 
 app.use('/api', articleRoutes); // You can replace '/api' with any base route you want
 
