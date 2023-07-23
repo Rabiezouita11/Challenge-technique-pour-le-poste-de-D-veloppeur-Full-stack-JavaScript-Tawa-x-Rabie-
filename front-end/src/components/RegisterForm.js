@@ -1,23 +1,32 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const RegisterForm = () => {
-  // State to store form data
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
   });
 
-  // Handle form input changes
+  const [recaptchaValue, setRecaptchaValue] = useState('');
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
+  const handleRecaptchaChange = (value) => {
+    setRecaptchaValue(value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Check if reCAPTCHA is valid
+    if (!recaptchaValue) {
+      alert('Please verify that you are not a robot.');
+      return;
+    }
     // TODO: Implement registration logic here
     console.log(formData);
   };
@@ -51,6 +60,13 @@ const RegisterForm = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
+        />
+      </Form.Group>
+
+      <Form.Group>
+        <ReCAPTCHA
+          sitekey="6Ld8HIYjAAAAALw437G-L_PF1PNrNZH4Qq76MvSU"
+          onChange={handleRecaptchaChange}
         />
       </Form.Group>
 

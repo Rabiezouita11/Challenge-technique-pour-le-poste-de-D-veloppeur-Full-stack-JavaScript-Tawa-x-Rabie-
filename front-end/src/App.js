@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RegisterForm from './components/RegisterForm';
-import LoginForm from './components/LoginForm';
+
 
 const App = () => {
   return (
@@ -31,7 +31,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<h1>Welcome to My React App</h1>} />
           <Route path="/register" element={<RegisterForm />} />
-          <Route path="/login" element={<LoginForm />} />
+        
         </Routes>
       </div>
     </Router>
