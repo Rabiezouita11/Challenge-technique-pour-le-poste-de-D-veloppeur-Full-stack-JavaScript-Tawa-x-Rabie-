@@ -7,6 +7,7 @@ const articleRoutes = require('./Routes/articleRoutes');
 var cookieParser = require('cookie-parser');
 const authRoutes = require("./Routes/auth.js");
 const passport = require('./Middleware/passport');
+const { isAuthenticated } = require('./Middleware/auth');
 
 const { validateUserRegistration } = require("./Middleware/validation.js");
 // Configuration des variables d'environnement à partir du fichier .env

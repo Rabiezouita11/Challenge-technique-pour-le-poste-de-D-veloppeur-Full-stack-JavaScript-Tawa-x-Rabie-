@@ -36,37 +36,49 @@ router.post("/register", async (req, res) => {
 
   
 // Protected route using JWT authentication
-router.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/protected', passport.authenticate(process.env.SECRET_KEY, { session: false }), (req, res) => {
     res.json({ message: 'You have accessed a protected route!' });
 });
 // User login route
 router.post('/login', (req, res, next) => {
-    passport.authenticate('local', { session: false }, (err, user, info) => {
+    passport.authenticate('local', { session: false }, async (err, user, info) => {
+      console.log(user);
       if (err) {
         // If there is an error during authentication, call next with the error to handle it
         return next(err);
       }
+  
       if (!user) {
-        // If user is not found, return an error response
+        // If user is not found or password is incorrect, return an error response
         return res.status(401).json({ message: 'Invalid username or password' });
       }
   
-      // If authentication is successful, generate and return the JWT token
-      req.login(user, { session: false }, async (err) => {
-        if (err) {
-          return next(err);
+      try {
+        // Check if the provided password is valid using the User model's isValidPassword method
+        const isValidPassword = await user.isValidPassword(req.body.password);
+        if (!isValidPassword) {
+          return res.status(401).json({ message: 'Invalid username or password' });
         }
   
-        // Add additional data to the JWT payload, such as email and username
-        const tokenPayload = {
-          sub: user._id,
-          email: user.email,
-          username: user.username,
-        };
+        // If authentication is successful, generate and return the JWT token
+        req.login(user, { session: false }, async (err) => {
+          if (err) {
+            return next(err);
+          }
   
-        const token = jwt.sign(tokenPayload, process.env.SECRET_KEY); // Replace this with your secret key
-        return res.json({ token });
-      });
+          // Add additional data to the JWT payload, such as email and username
+          const tokenPayload = {
+            sub: user._id,
+            email: user.email,
+            username: user.username,
+          };
+  
+          const token = jwt.sign(tokenPayload, process.env.SECRET_KEY); // Replace this with your secret key
+          return res.json({ token });
+        });
+      } catch (err) {
+        return next(err);
+      }
     })(req, res, next);
   });
   
