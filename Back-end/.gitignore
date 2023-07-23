@@ -6,8 +6,8 @@ npm-debug.log
 logs
 *.log
 
-# Environment variables
-.env
+# # Environment variables
+# .env
 
 # Built output
 build/
