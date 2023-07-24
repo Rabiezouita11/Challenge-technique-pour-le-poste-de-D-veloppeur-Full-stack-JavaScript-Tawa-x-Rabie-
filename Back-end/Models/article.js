@@ -1,31 +1,22 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+// backend/models/Article.js
+const mongoose = require('mongoose');
 
-const ArticleSchema = new Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-    },
-    content: {
-      type: String,
-      required: true,
-    },
-    author: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
+const articleSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
   },
-  { timestamps: true }
-);
+  content: {
+    type: String,
+    required: true,
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference to the User model
+    required: true,
+  },
+});
 
-module.exports = mongoose.model("Article", ArticleSchema);
+const Article = mongoose.model('Article', articleSchema);
+
+module.exports = Article;
