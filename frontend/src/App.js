@@ -24,7 +24,7 @@ function App() {
       if (token && name) {
         const decodedToken = jwtDecode(token);
         setLoggedIn(true);
-        setUserName(decodedToken.name);
+        setUserName(name);
         setUserEmail(decodedToken.email);
         
       
