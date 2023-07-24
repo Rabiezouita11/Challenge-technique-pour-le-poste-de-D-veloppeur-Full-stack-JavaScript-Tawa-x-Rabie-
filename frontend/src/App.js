@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import Login from './components/Auth/login';
 import Register from './components/Auth/Register';
 import Dashboard from './components/Dashboard';
 import jwtDecode from 'jwt-decode'; // Import the jwt-decode library
+import React from 'react';
 
 import ArticleList from './components/ArticleList';
 import Profile from './components/Profile'; // Import the Profile component
