@@ -108,6 +108,7 @@ function App() {
             <Nav className="me-auto">
               {loggedIn && <Nav.Link as={Link} to="/dashboard">Home</Nav.Link>}
               {loggedIn && <Nav.Link as={Link} to="/">Articles</Nav.Link>}
+            
             </Nav>
             {loggedIn ? (
            <NavDropdown title={`Welcome, ${userName}`} id="basic-nav-dropdown">
@@ -138,6 +139,7 @@ function App() {
             <Route path="/" element={<ArticleList />} />
             <Route path="/profile" element={<Profile handleLogout={handleLogout} onUpdateUserName={handleUpdateUserName} />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            
           </>
         ) : (
           <Route path="/*" element={<Navigate to="/login" />} />
