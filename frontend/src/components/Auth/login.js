@@ -15,43 +15,46 @@ const Login = ({ setLoggedIn }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     // Check if email and password are empty
     if (!email || !password) {
       toast.error('Please fill in all the required fields.');
-
+  
       // Focus on the first empty required input field
       if (!email) emailInputRef.current.focus();
       else if (!password) passwordInputRef.current.focus();
-
+  
       return;
     }
-
+  
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', {
         email,
         password,
+      }, {
+        timeout: 10000, // Set a timeout of 10 seconds (adjust as needed)
       });
-
+  
       // Save token and user name in local storage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('name', response.data.name);
       
       // Set loggedIn to true after successful login
       setLoggedIn(true);
-
+  
       // Redirect to dashboard after successful login
       navigate('/dashboard'); // Use useNavigate to redirect to the dashboard
-
+  
       // Show toast notification for successful login
       toast.success('Login successful! Welcome back.');
-
+  
     } catch (error) {
       console.error(error);
       // Show toast notification for login failure
       toast.error('Invalid credentials. Please try again.');
     }
   };
+  
 
   return (
     <div className="container mt-5">

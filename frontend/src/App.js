@@ -85,6 +85,7 @@ function App() {
     localStorage.removeItem('token');
     localStorage.removeItem('name');
     localStorage.removeItem('isToastShown');
+    localStorage.clear();
     setLoggedIn(false);
  
 

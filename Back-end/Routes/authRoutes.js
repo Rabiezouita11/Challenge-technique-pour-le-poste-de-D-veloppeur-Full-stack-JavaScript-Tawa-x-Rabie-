@@ -2,7 +2,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const User = require('../Models/user');
 const dotenv = require('dotenv');
 dotenv.config();
 const router = express.Router();
@@ -11,8 +11,8 @@ const authMiddleware = require('../Middleware/authMiddleware');
 // User registration
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-
+    const { name, email, password, lat, lng } = req.body;
+console.log(req.body);
     // Check if the user already exists
     let user = await User.findOne({ email });
     if (user) {
@@ -27,6 +27,8 @@ router.post('/register', async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      lng, // Make sure the lat and lng values are being passed correctly here
+      lat,
     });
 
     await user.save();
@@ -79,7 +81,7 @@ router.get('/profile', authMiddleware, async (req, res) => {
     }
 
     // Return the user's profile data in the response
-    return res.status(200).json({ name: user.name, email: user.email });
+    return res.status(200).json({ name: user.name, email: user.email   , lat: user.lat, lng: user.lng});
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Server error' });

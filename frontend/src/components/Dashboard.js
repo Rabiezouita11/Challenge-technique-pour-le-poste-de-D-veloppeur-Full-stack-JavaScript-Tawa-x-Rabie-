@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 const Dashboard = () => {
   const [userName, setUserName] = useState(''); // Declare userName using useState hook
+  const [userLocation, setUserLocation] = useState(null); // Store the user's location data
 
   useEffect(() => {
     // Check if the toast has already been shown
@@ -23,8 +27,7 @@ const Dashboard = () => {
           }
         );
 
-   
-        const { name } = response.data; // Assuming the response contains 'name' and 'email'
+        const { name } = response.data; // Assuming the response contains 'name'
         setUserName(name);
       } catch (error) {
         console.error(error);
@@ -40,16 +43,60 @@ const Dashboard = () => {
 
       localStorage.setItem('isToastShown', true);
     }
+
+    // Fetch the user's location data
     fetchUserProfileData();
+    getUserLocation();
   }, [userName]); // Empty dependency array means this effect runs only once on component mount
+
+  const getUserLocation = () => {
+    // Get user's geolocation
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error(error);
+          toast.error('Failed to get geolocation. Please try again.');
+        }
+      );
+    } else {
+      toast.error('Geolocation is not supported by your browser.');
+    }
+  };
 
   return (
     <div>
-      <ToastContainer position="top-center" autoClose={3000} />
-      <h2>Dashboard</h2>
-      <p>Welcome to your dashboard, {userName}!</p>
-    </div>
-  );
+    <ToastContainer position="top-center" autoClose={3000} />
+    <div style={{ textAlign: 'center', marginTop: '30px' }} className="dashboard-header">
+        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '10px' }}>Welcome to your Dashboard, {userName}!</h2>
+        <p style={{ fontSize: '18px', color: '#888' }}>Your current location:</p>
+      </div>
+    {userLocation && (
+              <div style={{ marginTop: '20px', borderRadius: '10px', boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)' }} className="map-container">
+
+      <MapContainer
+      center={[userLocation.latitude, userLocation.longitude]}
+      zoom={13}
+      style={{ height: '600px', width: '100%' }}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+
+        <Marker position={[userLocation.latitude, userLocation.longitude]}>
+          <Popup>You are here!</Popup>
+        </Marker>
+      </MapContainer>
+            </div>
+    )}
+  </div>
+);
 };
 
 export default Dashboard;
