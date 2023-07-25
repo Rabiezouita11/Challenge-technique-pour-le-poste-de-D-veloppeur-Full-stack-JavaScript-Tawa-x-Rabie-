@@ -42,14 +42,15 @@ npm run dev
 		<td>API Testing</td>
 		<td>Postman</td>
 	</tr>
+	   <tr>
+		<td>Other APIs Used</td>
+		<td>API de géolocalisation  </td>
+	</tr>
 	<tr>
 		<td>Database</td>
 		<td>MongoDB</td>
 	</tr>
 
-    <tr>
-		<td>Other APIs Used</td>
-		<td>API de géolocalisation  </td>
-	</tr>
+ 
 </tbody>
 </table>
