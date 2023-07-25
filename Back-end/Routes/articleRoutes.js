@@ -1,6 +1,7 @@
 // backend/routes/articleRoutes.js
 const express = require('express');
 const Article = require('../Models/Article');
+const authMiddleware = require('../Middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -26,9 +27,10 @@ router.post('/', async (req, res) => {
 });
 
 // Retrieve all articles
-router.get('/', async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
   try {
-    const articles = await Article.find();
+    const userId = req.userData.userId; // Retrieve the user ID from the authenticated user's token
+    const articles = await Article.find({ author: userId }); // Find articles that have the user ID as the author
     return res.status(200).json(articles);
   } catch (error) {
     return res.status(500).json({ message: 'Server error' });

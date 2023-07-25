@@ -1,37 +1,58 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import Login from './components/Auth/login';
 import Register from './components/Auth/Register';
 import Dashboard from './components/Dashboard';
-// import jwtDecode from 'jwt-decode'; // Import the jwt-decode library
-import React from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import ArticleList from './components/ArticleList';
-import Profile from './components/Profile'; // Import the Profile component
-
+import Profile from './components/Profile';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 function App() {
   // Check for the user token in local storage during initial rendering
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
   const [userName, setUserName] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Function to fetch user profile data
+  const fetchUserProfileData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+
+      const response = await axios.get(
+        'http://localhost:5000/api/auth/profile', // Adjust the API endpoint as needed
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+
+      const { name } = response.data; // Assuming the response contains 'name' and 'email'
+      setUserName(name);
+      // setUserEmail(email);
+    } catch (error) {
+      // console.error(error);
+    }
+  };
+
   // const [userEmail, setUserEmail] = useState('');
   useEffect(() => {
     const checkLoginStatus = () => {
       const token = localStorage.getItem('token');
-      const name = localStorage.getItem('name');
-      if (token ) {
+      // const name = localStorage.getItem('name');
+      if (token) {
         // const decodedToken = jwtDecode(token);
         setLoggedIn(true);
-        setUserName(name);
         // setUserEmail(decodedToken.email);
-
-
       }
     };
 
     checkLoginStatus();
-    
+
     const checkTokenExpiration = () => {
       const token = localStorage.getItem('token');
       if (token) {
@@ -43,7 +64,6 @@ function App() {
             localStorage.removeItem('token');
             localStorage.removeItem('name');
             setLoggedIn(false);
-            
           }
         } catch (error) {
           console.error('Error decoding token:', error);
@@ -53,20 +73,30 @@ function App() {
 
     checkTokenExpiration();
 
+    // Fetch user profile data when the component mounts
+    fetchUserProfileData();
+    (async () => {
+      await fetchUserProfileData();
+    })();
+  }, [loggedIn]);
 
-
-    // Check if user is already logged in and get the user's name from local storage
-
-  }, []);
-
-  const handleLogout = () => {
+  const handleLogout = (shouldLogout = true) => {
     // Logic to handle user logout, e.g., clearing token from localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('name');
     localStorage.removeItem('isToastShown');
     setLoggedIn(false);
-  };
+ 
 
+    if (shouldLogout) {
+      // Fetch the user profile data to update the user name
+
+      navigate('/login');
+    }
+  };
+  const handleUpdateUserName = (newName) => {
+    setUserName(newName);
+  };
   return (
     <div>
       {/* Your existing navigation bar */}
@@ -79,13 +109,15 @@ function App() {
               {loggedIn && <Nav.Link as={Link} to="/">Articles</Nav.Link>}
             </Nav>
             {loggedIn ? (
-              <NavDropdown title={userName} id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
+           <NavDropdown title={`Welcome, ${userName}`} id="basic-nav-dropdown">
+                <NavDropdown.Item as={Link} to="/profile">
+                  Profile
+                </NavDropdown.Item>
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
             ) : (
               <Nav>
-                <Nav.Link as={Link} to="/login" >Login</Nav.Link>
+                <Nav.Link as={Link} to="/login">Login</Nav.Link>
                 <Nav.Link as={Link} to="/register">Register</Nav.Link>
               </Nav>
             )}
@@ -103,7 +135,7 @@ function App() {
         {loggedIn ? (
           <>
             <Route path="/" element={<ArticleList />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile handleLogout={handleLogout} onUpdateUserName={handleUpdateUserName} />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </>
         ) : (
@@ -112,6 +144,6 @@ function App() {
       </Routes>
     </div>
   );
-};
+}
 
 export default App;

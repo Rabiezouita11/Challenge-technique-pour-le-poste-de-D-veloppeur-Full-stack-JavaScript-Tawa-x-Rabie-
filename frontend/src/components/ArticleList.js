@@ -32,7 +32,6 @@ const ArticleList = () => {
       setArticles(response.data);
       setLoading(false);
     } catch (error) {
-      
       console.error(error);
       setLoading(false);
     }
@@ -172,7 +171,7 @@ const ArticleList = () => {
         localStorage.removeItem('name');
         localStorage.removeItem('isToastShown');
         navigate('/login'); // Navigate to the login page
-      window.location.reload(); // Refresh the page to clear the state
+        window.location.reload(); // Refresh the page to clear the state
         // Show a toast notification for unauthorized access
         toast.error('You have been logged out. Please log in again.');
       } else {

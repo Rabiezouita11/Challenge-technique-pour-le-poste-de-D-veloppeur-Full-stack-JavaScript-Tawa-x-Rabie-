@@ -5,8 +5,8 @@ import { Modal, Button } from 'react-bootstrap'; // Import Modal and Button from
 import ConfirmationModal from '../utils/ConfirmationModal'; // Import the ConfirmationModal component
 import { useNavigate } from 'react-router-dom';
 
-const Profile = ({ setLoggedIn }) => {
-    const [userName, setUserName] = useState('');
+const Profile = ({ handleLogout , onUpdateUserName   }) => {
+  const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false); // State to manage the Delete Account modal
@@ -15,44 +15,43 @@ const Profile = ({ setLoggedIn }) => {
   useEffect(() => {
     // Function to retrieve user data from the token
     const fetchUserProfileData = async () => {
-        try {
-          const token = localStorage.getItem('token');
-          console.log('Token:', token);
-    
-          const response = await axios.get(
-            'http://localhost:5000/api/auth/profile', // Adjust the API endpoint as needed
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-    
-          console.log('Profile Data Response:', response.data);
-    
-          const { name, email } = response.data; // Assuming the response contains 'name' and 'email'
-          setUserName(name);
-          setUserEmail(email);
-        } catch (error) {
-          console.error(error);
-          toast.error('Failed to fetch user profile data. Please try again.');
-        }
-      };
-    
-      fetchUserProfileData();
-    }, []);
-  
+      try {
+        const token = localStorage.getItem('token');
+       
+
+        const response = await axios.get(
+          'http://localhost:5000/api/auth/profile', // Adjust the API endpoint as needed
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+
+        const { name, email } = response.data; // Assuming the response contains 'name' and 'email'
+        setUserName(name);
+        setUserEmail(email);
+      } catch (error) {
+        console.error(error);
+        toast.error('Failed to fetch user profile data. Please try again.');
+      }
+    };
+
+    fetchUserProfileData();
+  }, []);
+
   // Function to handle updating the profile
-// ... (previous code)
-const handleNameChange = (event) => {
+  // ... (previous code)
+  const handleNameChange = (event) => {
     setUserName(event.target.value);
   };
 
   const handleEmailChange = (event) => {
     setUserEmail(event.target.value);
   };
-// Function to handle updating the profile
-const handleUpdateProfile = async () => {
+  // Function to handle updating the profile
+  const handleUpdateProfile = async () => {
     try {
       const token = localStorage.getItem('token');
       const tokenData = JSON.parse(atob(token.split('.')[1]));
@@ -67,7 +66,7 @@ const handleUpdateProfile = async () => {
           },
         }
       );
-
+      onUpdateUserName(userName);
       toast.success(response.data.message);
     } catch (error) {
       console.error(error);
@@ -75,19 +74,19 @@ const handleUpdateProfile = async () => {
     }
   };
   // ... (remaining code)
-  
+
 
   // Function to handle changing the password
   const handleChangePassword = async (e) => {
     e.preventDefault();
     const currentPassword = e.target.currentPassword.value;
     const newPassword = e.target.newPassword.value;
-  
+
     try {
       const token = localStorage.getItem('token');
       const tokenData = JSON.parse(atob(token.split('.')[1]));
       const userId = tokenData.userId; // Retrieve userId from the decoded token
-  
+
       const response = await axios.put(
         'http://localhost:5000/api/auth/change-password',
         { userId, currentPassword, newPassword },
@@ -97,7 +96,7 @@ const handleUpdateProfile = async () => {
           },
         }
       );
-  
+
       toast.success(response.data.message);
       setShowChangePasswordModal(false); // Close the modal after changing the password
     } catch (error) {
@@ -105,7 +104,7 @@ const handleUpdateProfile = async () => {
       toast.error('Failed to change password. Please try again.');
     }
   };
-  
+
 
   // Function to handle deleting the account
   const handleDeleteAccount = async () => {
@@ -124,11 +123,11 @@ const handleUpdateProfile = async () => {
         }
       );
       localStorage.clear();
-      
+      handleLogout(false);
       navigate('/login');
-      
+
       toast.success(response.data.message);
-      
+
     } catch (error) {
       console.error(error);
       toast.error('Failed to delete account. Please try again.');
@@ -136,68 +135,69 @@ const handleUpdateProfile = async () => {
   };
   return (
     <div className="container rounded bg-white mt-5 mb-5">
-    <div className="row">
-      <div className="col-md-3 border-right">
-        <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img
-            className="rounded-circle mt-5"
-            width="150px"
-            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-            alt="Profile Avatar"
-          />
-          <span className="font-weight-bold">{userName}</span>
-          <span className="text-black-50">{userEmail}</span>
-          <span> </span>
-        </div>
-      </div>
-      <div className="col-md-5 border-right">
-        <div className="p-3 py-5">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h4 className="text-right">Profile Settings</h4>
-          </div>
-          <div className="row mt-3">
-            <div className="col-md-12">
-              <label className="labels">Name</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="first name"
-                value={userName}
-                onChange={handleNameChange} // Add onChange handler to update the name state
-              />
-            </div>
-
-            <div className="col-md-12">
-              <label className="labels">Email</label>
-              <input
-                type="text"
-                className="form-control"
-                value={userEmail}
-                placeholder="email"
-                onChange={handleEmailChange} // Add onChange handler to update the email state
-              />
-            </div>
-          </div>
-          <div className="mt-5 text-center">
-            <button className="btn btn-primary profile-button" type="button" onClick={handleUpdateProfile}>
-              Save Profile
-            </button>
-            <button className="btn btn-danger profile-button" type="button" onClick={() => setShowChangePasswordModal(true)}>
-              Change Password
-            </button>
-            <button className="btn btn-danger profile-button" type="button" onClick={() => setShowDeleteAccountModal(true)}>
-              Delete Account
-            </button>
+      <div className="row">
+        <div className="col-md-3 border-right">
+          <div className="d-flex flex-column align-items-center text-center p-3 py-5">
+            <img
+              className="rounded-circle mt-5"
+              width="150px"
+              src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+              alt="Profile Avatar"
+            />
+            <span className="font-weight-bold">{userName}</span>
+            <span className="text-black-50">{userEmail}</span>
+            <span> </span>
           </div>
         </div>
-      </div>
-    </div>
+        <div className="col-md-5 border-right">
+          <div className="p-3 py-5">
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h4 className="text-right">Profile Settings</h4>
+            </div>
+            <div className="row mt-3">
+              <div className="col-md-12">
+                <label className="labels">Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="first name"
+                  value={userName}
+                  onChange={handleNameChange} // Add onChange handler to update the name state
+                />
+              </div>
 
-    <ToastContainer position="top-center" autoClose={3000} />
+              <div className="col-md-12">
+                <label className="labels">Email</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={userEmail}
+                  placeholder="email"
+                  onChange={handleEmailChange} // Add onChange handler to update the email state
+                />
+              </div>
+            </div>
+            <div className="mt-5 text-center d-flex justify-content-between">
+              <button className="btn btn-primary profile-button" type="button" onClick={handleUpdateProfile}>
+                Save Profile
+              </button>
+              <button className="btn btn-danger profile-button mx-2" type="button" onClick={() => setShowChangePasswordModal(true)}>
+                Change Password
+              </button>
+              <button className="btn btn-danger profile-button" type="button" onClick={() => setShowDeleteAccountModal(true)}>
+                Delete Account
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <ToastContainer position="top-center" autoClose={3000} />
 
 
       {/* Add ToastContainer to show toast notifications */}
-     
+
 
       {/* Change Password Modal */}
       <Modal show={showChangePasswordModal} onHide={() => setShowChangePasswordModal(false)}>
