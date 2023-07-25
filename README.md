@@ -1,4 +1,5 @@
-# Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-
+# Challenge technique pour le poste de Développeur Full-stack JavaScript [Tawa x Rabie]
+
 
 ## Steps for Project Execution :
 
@@ -45,10 +46,7 @@ npm run dev
 		<td>Database</td>
 		<td>MongoDB</td>
 	</tr>
-  <tr>
-		<td>Images Storage</td>
-		<td>locale</td>
-	</tr>
+
     <tr>
 		<td>Other APIs Used</td>
 		<td>API de géolocalisation  </td>
