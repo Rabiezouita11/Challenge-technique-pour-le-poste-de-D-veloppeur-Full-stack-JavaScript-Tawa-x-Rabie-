@@ -77,25 +77,26 @@ npm run dev
 ##### dashboard
 ![dashboard](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/16f7d979-3ecb-44df-9209-80be5453fc71)
 
-##### supprimer compte
+##### Supprimer le compte
 ![delete compte](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/983db2d6-5299-4a59-875b-1298ceb74938)
 
-##### modifier articles
+##### Modifier l'article
 ![modifier articles](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/8977a390-8681-44b1-af2e-9ae7d87895a6)
 
 ##### profile
 ![profiles](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/a4da96dd-a2e4-48f2-9353-cd27db8cebaa)
 
-##### supprimer article
+##### Supprimer l'article
 
 ![supprimer articles](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/98e58f9d-7c04-43ea-826e-3e8734361be1)
 
 
-##### Base donner User 
+##### Base de données d'utilisateurs
 ![user base donner](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/1e948c75-22a4-473d-9421-84ecdd96ebc7)
 
 
-##### Base donner article 
+#####  Base de données d'articles
+
 ![articles base donner](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/30902969-0625-4f44-81de-e067f965526f)
 
 
