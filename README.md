@@ -89,3 +89,13 @@ npm run dev
 ##### supprimer article
 
 ![supprimer articles](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/98e58f9d-7c04-43ea-826e-3e8734361be1)
+
+
+##### Base donner User 
+![user base donner](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/1e948c75-22a4-473d-9421-84ecdd96ebc7)
+
+
+##### Base donner article 
+![articles base donner](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/30902969-0625-4f44-81de-e067f965526f)
+
+
