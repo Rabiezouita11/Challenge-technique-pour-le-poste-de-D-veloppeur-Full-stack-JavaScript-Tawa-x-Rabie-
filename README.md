@@ -54,3 +54,38 @@ npm run dev
  
 </tbody>
 </table>
+
+
+## demo
+
+
+## Screenshots
+
+##### Register 
+![register](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/a0b4f1c8-ac92-41e3-87e2-fc050ac0119e)
+
+##### Login 
+
+![login](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/b68cb021-f5f4-4358-8efd-62efb0a54672)
+
+##### List Articles
+![Articles](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/7f28f003-646c-40eb-8e18-bec03c041dd4)
+
+##### changer mot de passe
+![changer mot de passe](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/5df577b9-9873-432b-af66-b80692e90f73)
+
+##### dashboard
+![dashboard](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/16f7d979-3ecb-44df-9209-80be5453fc71)
+
+##### supprimer compte
+![delete compte](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/983db2d6-5299-4a59-875b-1298ceb74938)
+
+##### modifier articles
+![modifier articles](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/8977a390-8681-44b1-af2e-9ae7d87895a6)
+
+##### profile
+![profiles](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/a4da96dd-a2e4-48f2-9353-cd27db8cebaa)
+
+##### supprimer article
+
+![supprimer articles](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/98e58f9d-7c04-43ea-826e-3e8734361be1)
