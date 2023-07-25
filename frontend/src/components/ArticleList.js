@@ -3,8 +3,11 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { Modal, Button } from 'react-bootstrap';
 import ConfirmationModal from '../utils/ConfirmationModal';
+import { useNavigate } from 'react-router-dom';
 
 const ArticleList = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -29,6 +32,7 @@ const ArticleList = () => {
       setArticles(response.data);
       setLoading(false);
     } catch (error) {
+      
       console.error(error);
       setLoading(false);
     }
@@ -154,15 +158,30 @@ const ArticleList = () => {
       );
       fetchArticles(); // Fetch articles again to get the updated list
       setShowAddModal(false);
+      setAddTitle(''); // Reset the addTitle state to clear the input field
+      setAddContent(''); // Reset the addContent state to clear the input field
 
       // Show a toast notification for successful article addition
       toast.success('Article added successfully.');
     } catch (error) {
       console.error(error);
-      // Show a toast notification for addition failure
-      toast.error('Failed to add article. Please try again.');
+      if (error.response && error.response.status === 401) {
+        // If the status code is 401 (Unauthorized), the token is expired or invalid
+        // Log out the user and clear localStorage
+        localStorage.removeItem('token');
+        localStorage.removeItem('name');
+        localStorage.removeItem('isToastShown');
+        navigate('/login'); // Navigate to the login page
+      window.location.reload(); // Refresh the page to clear the state
+        // Show a toast notification for unauthorized access
+        toast.error('You have been logged out. Please log in again.');
+      } else {
+        // Show a toast notification for addition failure
+        toast.error('Failed to add article. Please try again.');
+      }
     }
   };
+
 
   if (loading) {
     return (

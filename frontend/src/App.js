@@ -1,37 +1,62 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import Login from './components/Auth/login';
 import Register from './components/Auth/Register';
 import Dashboard from './components/Dashboard';
-import jwtDecode from 'jwt-decode'; // Import the jwt-decode library
+// import jwtDecode from 'jwt-decode'; // Import the jwt-decode library
 import React from 'react';
 
 import ArticleList from './components/ArticleList';
 import Profile from './components/Profile'; // Import the Profile component
 
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 function App() {
   // Check for the user token in local storage during initial rendering
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
   const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  // const [userEmail, setUserEmail] = useState('');
   useEffect(() => {
-    // Check if user is already logged in and get the user's name from local storage
     const checkLoginStatus = () => {
       const token = localStorage.getItem('token');
       const name = localStorage.getItem('name');
-      if (token && name) {
-        const decodedToken = jwtDecode(token);
+      if (token ) {
+        // const decodedToken = jwtDecode(token);
         setLoggedIn(true);
         setUserName(name);
-        setUserEmail(decodedToken.email);
-        
-      
+        // setUserEmail(decodedToken.email);
+
+
       }
     };
 
     checkLoginStatus();
+    
+    const checkTokenExpiration = () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const tokenData = JSON.parse(atob(token.split('.')[1]));
+          const exp = tokenData.exp; // Expiration time in Unix timestamp format (seconds since epoch)
+          if (Date.now() >= exp * 1000) {
+            // Token has expired, remove it from localStorage and set logged in to false
+            localStorage.removeItem('token');
+            localStorage.removeItem('name');
+            setLoggedIn(false);
+            
+          }
+        } catch (error) {
+          console.error('Error decoding token:', error);
+        }
+      }
+    };
+
+    checkTokenExpiration();
+
+
+
+    // Check if user is already logged in and get the user's name from local storage
+
   }, []);
 
   const handleLogout = () => {
@@ -50,7 +75,7 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {loggedIn && <Nav.Link  as={Link} to="/dashboard">Home</Nav.Link>}
+              {loggedIn && <Nav.Link as={Link} to="/dashboard">Home</Nav.Link>}
               {loggedIn && <Nav.Link as={Link} to="/">Articles</Nav.Link>}
             </Nav>
             {loggedIn ? (
