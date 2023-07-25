@@ -12,7 +12,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Check if the toast has already been shown
-    const isToastShown = localStorage.getItem('isToastShown');
+   
 
     const fetchUserProfileData = async () => {
       try {
@@ -36,19 +36,23 @@ const Dashboard = () => {
     };
 
     // If the toast has not been shown yet, show it and set the flag in localStorage
-    if (!isToastShown) {
+
+
+    // Fetch the user's location data
+    fetchUserProfileData();
+    getUserLocation();
+  }, []); // Empty dependency array means this effect runs only once on component mount
+  useEffect(() => {
+    const isToastShown = localStorage.getItem('isToastShown');
+    // When the userName state is updated, show the toast
+    if (!isToastShown&&userName) {
       toast.success(`Welcome to your dashboard, ${userName}!`, {
         autoClose: 3000, // Close the toast after 3 seconds
       });
 
       localStorage.setItem('isToastShown', true);
     }
-
-    // Fetch the user's location data
-    fetchUserProfileData();
-    getUserLocation();
-  }, [userName]); // Empty dependency array means this effect runs only once on component mount
-
+  }, [userName]);
   const getUserLocation = () => {
     // Get user's geolocation
     if (navigator.geolocation) {
