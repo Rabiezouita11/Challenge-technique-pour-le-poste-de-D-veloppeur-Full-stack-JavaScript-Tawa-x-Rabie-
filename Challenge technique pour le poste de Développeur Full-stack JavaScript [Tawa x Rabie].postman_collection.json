@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "90707a62-a02d-4161-a825-dc1fe8a446a3",
+		"_postman_id": "b0f58d1b-8698-49ec-a48a-309f91fabb80",
 		"name": "Challenge technique pour le poste de Développeur Full-stack JavaScript [Tawa x Rabie]",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28697198"
@@ -37,36 +37,6 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:5000/api/articles",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"articles"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all articles",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGJlNzNkZDUwYzAwNmUxODU1NGYyMzQiLCJpYXQiOjE2OTAyMDM3MTUsImV4cCI6MTY5MDIwNzMxNX0.Cd3WsmKuTLtNl0DFR6X2dwICd2z2PEPbHHCX3Yk45go",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
 						"url": {
 							"raw": "http://localhost:5000/api/articles",
 							"protocol": "http",
@@ -148,42 +118,6 @@
 								"api",
 								"user",
 								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "protected routes",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NGJjNjM0MDI0OTlkOTFmODFjYWRlMWMiLCJlbWFpbCI6ImFhQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJyYWJpZSIsImlhdCI6MTY5MDA2ODg3Mn0.J9N6AUChbM4nUCwQgFuBGwFhP8aINZZW2Dc-9B5G6ZI",
-								"type": "text"
-							},
-							{
-								"key": "",
-								"value": "",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "http://localhost:5000/api/user/protected",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"user",
-								"protected"
 							]
 						}
 					},
