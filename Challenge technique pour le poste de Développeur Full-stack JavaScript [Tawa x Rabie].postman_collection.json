@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "90707a62-a02d-4161-a825-dc1fe8a446a3",
+		"name": "Challenge technique pour le poste de Développeur Full-stack JavaScript [Tawa x Rabie]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28697198"
+	},
+	"item": [
+		{
+			"name": "articles",
+			"item": [
+				{
+					"name": "ajouter articles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NGJjNzAxN2E0ZmE3MWMzYzI5ZDYyZTIiLCJlbWFpbCI6ImFzc2FsYUBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYXNzYWxhIiwiaWF0IjoxNjkwMDcyMDMwfQ.E5hBjNGm0ATRZXAHGZ5-zxFj87FINTz-S4AUOmWn3mk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Sample Article\",\r\n  \"content\": \"This is the content of the sample article.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/articles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all articles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGJlNzNkZDUwYzAwNmUxODU1NGYyMzQiLCJpYXQiOjE2OTAyMDM3MTUsImV4cCI6MTY5MDIwNzMxNX0.Cd3WsmKuTLtNl0DFR6X2dwICd2z2PEPbHHCX3Yk45go",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/articles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"articles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "register user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"password\": \"password123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"assala\",\r\n  \"password\": \"123Rabie\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "protected routes",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NGJjNjM0MDI0OTlkOTFmODFjYWRlMWMiLCJlbWFpbCI6ImFhQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJyYWJpZSIsImlhdCI6MTY5MDA2ODg3Mn0.J9N6AUChbM4nUCwQgFuBGwFhP8aINZZW2Dc-9B5G6ZI",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/user/protected",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"user",
+								"protected"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
