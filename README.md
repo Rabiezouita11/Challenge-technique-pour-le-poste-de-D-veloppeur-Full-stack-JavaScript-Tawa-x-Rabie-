@@ -68,6 +68,11 @@ https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeu
 
 ## Screenshots
 
+##### Api  de géolocalisation
+
+![geo](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/ab1318b0-c425-4f86-8465-d676847c1547)
+
+
 ##### Register 
 ![register](https://github.com/Rabiezouita11/Challenge-technique-pour-le-poste-de-D-veloppeur-Full-stack-JavaScript-Tawa-x-Rabie-/assets/91283165/a0b4f1c8-ac92-41e3-87e2-fc050ac0119e)
 
